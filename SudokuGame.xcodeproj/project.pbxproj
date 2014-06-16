@@ -13,6 +13,14 @@
 		47B4A4FD194BE830005C76B4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47B4A4FB194BE830005C76B4 /* Main.storyboard */; };
 		47B4A4FF194BE830005C76B4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47B4A4FE194BE830005C76B4 /* Images.xcassets */; };
 		47B4A50B194BE830005C76B4 /* SudokuGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B4A50A194BE830005C76B4 /* SudokuGameTests.swift */; };
+		47F3E334194D442100F15912 /* darkwoodenbackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 47F3E32E194D442100F15912 /* darkwoodenbackground.png */; };
+		47F3E335194D442100F15912 /* woodenBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 47F3E32F194D442100F15912 /* woodenBackground.png */; };
+		47F3E336194D442100F15912 /* tilebackground.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 47F3E330194D442100F15912 /* tilebackground.jpg */; };
+		47F3E337194D442100F15912 /* wood-texture.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 47F3E331194D442100F15912 /* wood-texture.jpg */; };
+		47F3E338194D442100F15912 /* oldpapermenu.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 47F3E332194D442100F15912 /* oldpapermenu.jpg */; };
+		47F3E339194D442100F15912 /* oldpaper.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 47F3E333194D442100F15912 /* oldpaper.jpeg */; };
+		47FC669D194EB3C60061644A /* NewGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47FC669C194EB3C60061644A /* NewGameViewController.swift */; };
+		47FC669F194EB6DA0061644A /* GameScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47FC669E194EB6DA0061644A /* GameScreenViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +44,14 @@
 		47B4A504194BE830005C76B4 /* SudokuGameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SudokuGameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		47B4A509194BE830005C76B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		47B4A50A194BE830005C76B4 /* SudokuGameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudokuGameTests.swift; sourceTree = "<group>"; };
+		47F3E32E194D442100F15912 /* darkwoodenbackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = darkwoodenbackground.png; path = "../../Custom Pictures/darkwoodenbackground.png"; sourceTree = "<group>"; };
+		47F3E32F194D442100F15912 /* woodenBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = woodenBackground.png; path = "../../Custom Pictures/woodenBackground.png"; sourceTree = "<group>"; };
+		47F3E330194D442100F15912 /* tilebackground.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = tilebackground.jpg; path = "../../Custom Pictures/tilebackground.jpg"; sourceTree = "<group>"; };
+		47F3E331194D442100F15912 /* wood-texture.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "wood-texture.jpg"; path = "../../Custom Pictures/wood-texture.jpg"; sourceTree = "<group>"; };
+		47F3E332194D442100F15912 /* oldpapermenu.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = oldpapermenu.jpg; path = "../../Custom Pictures/oldpapermenu.jpg"; sourceTree = "<group>"; };
+		47F3E333194D442100F15912 /* oldpaper.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = oldpaper.jpeg; path = "../../Custom Pictures/oldpaper.jpeg"; sourceTree = "<group>"; };
+		47FC669C194EB3C60061644A /* NewGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewGameViewController.swift; sourceTree = "<group>"; };
+		47FC669E194EB6DA0061644A /* GameScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScreenViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +72,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		47A0AE96194D59A300153035 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				47F3E32E194D442100F15912 /* darkwoodenbackground.png */,
+				47F3E32F194D442100F15912 /* woodenBackground.png */,
+				47F3E330194D442100F15912 /* tilebackground.jpg */,
+				47F3E331194D442100F15912 /* wood-texture.jpg */,
+				47F3E332194D442100F15912 /* oldpapermenu.jpg */,
+				47F3E333194D442100F15912 /* oldpaper.jpeg */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
 		47B4A4E6194BE830005C76B4 = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +112,8 @@
 				47B4A4FE194BE830005C76B4 /* Images.xcassets */,
 				47B4A4F6194BE830005C76B4 /* SudokuGame.xcdatamodeld */,
 				47B4A4F2194BE830005C76B4 /* Supporting Files */,
+				47FC669C194EB3C60061644A /* NewGameViewController.swift */,
+				47FC669E194EB6DA0061644A /* GameScreenViewController.swift */,
 			);
 			path = SudokuGame;
 			sourceTree = "<group>";
@@ -90,6 +121,7 @@
 		47B4A4F2194BE830005C76B4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				47A0AE96194D59A300153035 /* Images */,
 				47B4A4F3194BE830005C76B4 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -192,8 +224,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47F3E339194D442100F15912 /* oldpaper.jpeg in Resources */,
+				47F3E336194D442100F15912 /* tilebackground.jpg in Resources */,
+				47F3E338194D442100F15912 /* oldpapermenu.jpg in Resources */,
 				47B4A4FD194BE830005C76B4 /* Main.storyboard in Resources */,
+				47F3E334194D442100F15912 /* darkwoodenbackground.png in Resources */,
 				47B4A4FF194BE830005C76B4 /* Images.xcassets in Resources */,
+				47F3E337194D442100F15912 /* wood-texture.jpg in Resources */,
+				47F3E335194D442100F15912 /* woodenBackground.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,7 +249,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47FC669F194EB6DA0061644A /* GameScreenViewController.swift in Sources */,
 				47B4A4FA194BE830005C76B4 /* ViewController.swift in Sources */,
+				47FC669D194EB3C60061644A /* NewGameViewController.swift in Sources */,
 				47B4A4F8194BE830005C76B4 /* SudokuGame.xcdatamodeld in Sources */,
 				47B4A4F5194BE830005C76B4 /* AppDelegate.swift in Sources */,
 			);
@@ -403,6 +443,7 @@
 				47B4A510194BE830005C76B4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		47B4A511194BE830005C76B4 /* Build configuration list for PBXNativeTarget "SudokuGameTests" */ = {
 			isa = XCConfigurationList;
@@ -411,6 +452,7 @@
 				47B4A513194BE830005C76B4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
