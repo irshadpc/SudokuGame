@@ -21,6 +21,7 @@
 		47F3E339194D442100F15912 /* oldpaper.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 47F3E333194D442100F15912 /* oldpaper.jpeg */; };
 		47FC669D194EB3C60061644A /* NewGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47FC669C194EB3C60061644A /* NewGameViewController.swift */; };
 		47FC669F194EB6DA0061644A /* GameScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47FC669E194EB6DA0061644A /* GameScreenViewController.swift */; };
+		47FC66A1194EC13F0061644A /* UISudokuBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47FC66A0194EC13F0061644A /* UISudokuBoardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,8 @@
 		47F3E333194D442100F15912 /* oldpaper.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = oldpaper.jpeg; path = "../../Custom Pictures/oldpaper.jpeg"; sourceTree = "<group>"; };
 		47FC669C194EB3C60061644A /* NewGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewGameViewController.swift; sourceTree = "<group>"; };
 		47FC669E194EB6DA0061644A /* GameScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScreenViewController.swift; sourceTree = "<group>"; };
+		47FC66A0194EC13F0061644A /* UISudokuBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISudokuBoardView.swift; sourceTree = "<group>"; };
+		47FC66A4194EC78D0061644A /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +117,8 @@
 				47B4A4F2194BE830005C76B4 /* Supporting Files */,
 				47FC669C194EB3C60061644A /* NewGameViewController.swift */,
 				47FC669E194EB6DA0061644A /* GameScreenViewController.swift */,
+				47FC66A0194EC13F0061644A /* UISudokuBoardView.swift */,
+				47FC66A4194EC78D0061644A /* MyPlayground.playground */,
 			);
 			path = SudokuGame;
 			sourceTree = "<group>";
@@ -251,6 +256,7 @@
 			files = (
 				47FC669F194EB6DA0061644A /* GameScreenViewController.swift in Sources */,
 				47B4A4FA194BE830005C76B4 /* ViewController.swift in Sources */,
+				47FC66A1194EC13F0061644A /* UISudokuBoardView.swift in Sources */,
 				47FC669D194EB3C60061644A /* NewGameViewController.swift in Sources */,
 				47B4A4F8194BE830005C76B4 /* SudokuGame.xcdatamodeld in Sources */,
 				47B4A4F5194BE830005C76B4 /* AppDelegate.swift in Sources */,
