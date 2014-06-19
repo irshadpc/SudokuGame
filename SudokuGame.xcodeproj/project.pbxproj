@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4728D48D19512B3400918509 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4728D48C19512B3400918509 /* GameManager.swift */; };
+		4728D48F19512C3A00918509 /* MDLTileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4728D48E19512C3A00918509 /* MDLTileManager.swift */; };
+		474B8AE71951659100A45572 /* UISudokuInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474B8AE61951659100A45572 /* UISudokuInputView.swift */; };
+		479E28EF195261F900F55745 /* UISudokuInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 479E28EE195261F900F55745 /* UISudokuInputView.xib */; };
 		47B4A4F5194BE830005C76B4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B4A4F4194BE830005C76B4 /* AppDelegate.swift */; };
 		47B4A4F8194BE830005C76B4 /* SudokuGame.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 47B4A4F6194BE830005C76B4 /* SudokuGame.xcdatamodeld */; };
 		47B4A4FA194BE830005C76B4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B4A4F9194BE830005C76B4 /* ViewController.swift */; };
@@ -19,8 +23,8 @@
 		47F3E337194D442100F15912 /* wood-texture.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 47F3E331194D442100F15912 /* wood-texture.jpg */; };
 		47F3E338194D442100F15912 /* oldpapermenu.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 47F3E332194D442100F15912 /* oldpapermenu.jpg */; };
 		47F3E339194D442100F15912 /* oldpaper.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 47F3E333194D442100F15912 /* oldpaper.jpeg */; };
-		47FC669D194EB3C60061644A /* NewGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47FC669C194EB3C60061644A /* NewGameViewController.swift */; };
-		47FC669F194EB6DA0061644A /* GameScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47FC669E194EB6DA0061644A /* GameScreenViewController.swift */; };
+		47FC669D194EB3C60061644A /* NewGameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47FC669C194EB3C60061644A /* NewGameVC.swift */; };
+		47FC669F194EB6DA0061644A /* GameScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47FC669E194EB6DA0061644A /* GameScreenVC.swift */; };
 		47FC66A1194EC13F0061644A /* UISudokuBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47FC66A0194EC13F0061644A /* UISudokuBoardView.swift */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +39,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4728D48C19512B3400918509 /* GameManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
+		4728D48E19512C3A00918509 /* MDLTileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MDLTileManager.swift; sourceTree = "<group>"; };
+		474B8AE61951659100A45572 /* UISudokuInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISudokuInputView.swift; sourceTree = "<group>"; };
+		479E28EE195261F900F55745 /* UISudokuInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UISudokuInputView.xib; sourceTree = "<group>"; };
 		47B4A4EF194BE830005C76B4 /* SudokuGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SudokuGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47B4A4F3194BE830005C76B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		47B4A4F4194BE830005C76B4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -51,8 +59,8 @@
 		47F3E331194D442100F15912 /* wood-texture.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "wood-texture.jpg"; path = "../../Custom Pictures/wood-texture.jpg"; sourceTree = "<group>"; };
 		47F3E332194D442100F15912 /* oldpapermenu.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = oldpapermenu.jpg; path = "../../Custom Pictures/oldpapermenu.jpg"; sourceTree = "<group>"; };
 		47F3E333194D442100F15912 /* oldpaper.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = oldpaper.jpeg; path = "../../Custom Pictures/oldpaper.jpeg"; sourceTree = "<group>"; };
-		47FC669C194EB3C60061644A /* NewGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewGameViewController.swift; sourceTree = "<group>"; };
-		47FC669E194EB6DA0061644A /* GameScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScreenViewController.swift; sourceTree = "<group>"; };
+		47FC669C194EB3C60061644A /* NewGameVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewGameVC.swift; sourceTree = "<group>"; };
+		47FC669E194EB6DA0061644A /* GameScreenVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScreenVC.swift; sourceTree = "<group>"; };
 		47FC66A0194EC13F0061644A /* UISudokuBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISudokuBoardView.swift; sourceTree = "<group>"; };
 		47FC66A4194EC78D0061644A /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -112,12 +120,16 @@
 				47B4A4F4194BE830005C76B4 /* AppDelegate.swift */,
 				47B4A4F9194BE830005C76B4 /* ViewController.swift */,
 				47B4A4FB194BE830005C76B4 /* Main.storyboard */,
+				479E28EE195261F900F55745 /* UISudokuInputView.xib */,
+				474B8AE61951659100A45572 /* UISudokuInputView.swift */,
+				47FC66A0194EC13F0061644A /* UISudokuBoardView.swift */,
 				47B4A4FE194BE830005C76B4 /* Images.xcassets */,
 				47B4A4F6194BE830005C76B4 /* SudokuGame.xcdatamodeld */,
 				47B4A4F2194BE830005C76B4 /* Supporting Files */,
-				47FC669C194EB3C60061644A /* NewGameViewController.swift */,
-				47FC669E194EB6DA0061644A /* GameScreenViewController.swift */,
-				47FC66A0194EC13F0061644A /* UISudokuBoardView.swift */,
+				47FC669C194EB3C60061644A /* NewGameVC.swift */,
+				47FC669E194EB6DA0061644A /* GameScreenVC.swift */,
+				4728D48C19512B3400918509 /* GameManager.swift */,
+				4728D48E19512C3A00918509 /* MDLTileManager.swift */,
 				47FC66A4194EC78D0061644A /* MyPlayground.playground */,
 			);
 			path = SudokuGame;
@@ -232,6 +244,7 @@
 				47F3E339194D442100F15912 /* oldpaper.jpeg in Resources */,
 				47F3E336194D442100F15912 /* tilebackground.jpg in Resources */,
 				47F3E338194D442100F15912 /* oldpapermenu.jpg in Resources */,
+				479E28EF195261F900F55745 /* UISudokuInputView.xib in Resources */,
 				47B4A4FD194BE830005C76B4 /* Main.storyboard in Resources */,
 				47F3E334194D442100F15912 /* darkwoodenbackground.png in Resources */,
 				47B4A4FF194BE830005C76B4 /* Images.xcassets in Resources */,
@@ -254,10 +267,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				47FC669F194EB6DA0061644A /* GameScreenViewController.swift in Sources */,
+				47FC669F194EB6DA0061644A /* GameScreenVC.swift in Sources */,
 				47B4A4FA194BE830005C76B4 /* ViewController.swift in Sources */,
 				47FC66A1194EC13F0061644A /* UISudokuBoardView.swift in Sources */,
-				47FC669D194EB3C60061644A /* NewGameViewController.swift in Sources */,
+				4728D48D19512B3400918509 /* GameManager.swift in Sources */,
+				47FC669D194EB3C60061644A /* NewGameVC.swift in Sources */,
+				474B8AE71951659100A45572 /* UISudokuInputView.swift in Sources */,
+				4728D48F19512C3A00918509 /* MDLTileManager.swift in Sources */,
 				47B4A4F8194BE830005C76B4 /* SudokuGame.xcdatamodeld in Sources */,
 				47B4A4F5194BE830005C76B4 /* AppDelegate.swift in Sources */,
 			);

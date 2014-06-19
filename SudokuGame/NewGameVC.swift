@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewGameViewController: UIViewController, UICollectionViewDataSource {
+class NewGameVC: UIViewController, UICollectionViewDataSource {
 
     
     @IBOutlet var sgmtMode : UISegmentedControl = nil
@@ -31,9 +31,9 @@ class NewGameViewController: UIViewController, UICollectionViewDataSource {
     
     override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!){
         
-        var destination = segue.destinationViewController as GameScreenViewController;
-        destination.mode = GameMode.fromRaw(sgmtMode.selectedSegmentIndex);
-        destination.difficulty = GameDifficulty.fromRaw(sgmtMode.selectedSegmentIndex);
+        var destination = segue.destinationViewController as GameScreenVC;
+        destination.mode = GameMode.fromRaw(sgmtMode.selectedSegmentIndex)!;
+        destination.difficulty = GameDifficulty.fromRaw(sgmtMode.selectedSegmentIndex)!;
     }
     
     func collectionView(collectionView: UICollectionView!, cellForItemAtIndexPath indexPath: NSIndexPath!) -> UICollectionViewCell! {

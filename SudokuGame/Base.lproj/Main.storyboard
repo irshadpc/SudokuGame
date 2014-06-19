@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6154.17" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="aMT-n6-DqZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6154.21" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="aMT-n6-DqZ">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6153.11"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6153.13"/>
     </dependencies>
     <scenes>
         <!--View Controller - Start Menu-->
@@ -53,10 +53,10 @@
             </objects>
             <point key="canvasLocation" x="948" y="199"/>
         </scene>
-        <!--New Game View Controller - New Game-->
+        <!--New GameVC - New Game-->
         <scene sceneID="Kkr-hB-zZe">
             <objects>
-                <viewController title="New Game" id="hZY-Pp-6q9" customClass="NewGameViewController" customModule="SudokuGame" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="New Game" id="hZY-Pp-6q9" customClass="NewGameVC" customModule="SudokuGame" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="r6i-qM-Wj8"/>
                         <viewControllerLayoutGuide type="bottom" id="M5v-K1-u4B"/>
@@ -142,10 +142,10 @@
             </objects>
             <point key="canvasLocation" x="1559" y="199"/>
         </scene>
-        <!--Game Screen View Controller - Game Screen-->
+        <!--Game ScreenVC - Game Screen-->
         <scene sceneID="s8J-xI-UPU">
             <objects>
-                <viewController title="Game Screen" modalTransitionStyle="crossDissolve" id="XoS-MQ-OhO" customClass="GameScreenViewController" customModule="SudokuGame" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Game Screen" modalTransitionStyle="crossDissolve" id="XoS-MQ-OhO" customClass="GameScreenVC" customModule="SudokuGame" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Wbd-vI-yDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="plq-Ua-I3F"/>
