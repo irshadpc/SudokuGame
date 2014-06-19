@@ -22,7 +22,7 @@ enum GameDifficulty : Int {
 }
 
 
-//By apples recommendations the board should be no smaller than 396 x 396 + 18 pixels for border size
+
 class GameScreenVC: UIViewController{
 
     var mode = GameMode.Classic
