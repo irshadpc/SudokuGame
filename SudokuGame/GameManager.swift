@@ -9,8 +9,8 @@
 import Foundation
 
 class GameManager: UISudokuboardViewDelegate, UISudokuboardViewDatasource{
-    
-    var currentlySelectedTile:TileIndex?
+    let NotSelected = TileIndex(row: 0, column: 0);
+    var currentlySelectedTile = TileIndex(row: 0, column: 0);
     var tilemanager = MDLTileManager();
     
     init(){
@@ -21,27 +21,28 @@ class GameManager: UISudokuboardViewDelegate, UISudokuboardViewDatasource{
         
     }
     
-    func sudokuboardView(gameboard:UISudokuboardView!, shouldSelect_sudokutileWithIndex index:TileIndex) -> Bool{
+    func sudokuboardView(gameboard:UISudokuboardView!, userTapped_sudokutileAtIndex index:TileIndex, inout onChange needsUpdate:Array<TileIndex>) -> Bool{
+        needsUpdate.append(index);
+        if(currentlySelectedTile == index){
+            currentlySelectedTile = NotSelected;
+        } else {
+            if(currentlySelectedTile != NotSelected) { needsUpdate.append(currentlySelectedTile); }
+            currentlySelectedTile = index;
+        }
         return true;
     }
     
-    func sudokuboardView(gameboard:UISudokuboardView!, didSelect_sudokutileWithIndex index:TileIndex){
-        
+    func sudokuboardView(gameboard:UISudokuboardView!, userInput_sudokutileAtIndex index:TileIndex, withValue value:Int){
+        tilemanager.setValue(value, ofTileWithIndex: index);
     }
     
-    func sudokuboardView(gameboard:UISudokuboardView!, shouldDeselect_sudokutileWithIndex index:TileIndex) -> Bool{
-        return true;
-    }
-    
-    func sudokuboardView(gameboard:UISudokuboardView!, didDeleselect_sudokutileWithIndex index:TileIndex){
-        
-    }
     
     func sudokuboardView(gameboard:UISudokuboardView!, currentValue_sudokutileWithIndex index:TileIndex) -> Int{
-        return 1;
+        return tilemanager.valueforTileIndex(index);
     }
     
     func sudokuboardView(gameboard:UISudokuboardView!, selectionState_forsudokutileWithIndex index:TileIndex) -> TileState{
         return (currentlySelectedTile == index) ? TileState.Selected : TileState.None;
     }
+    
 }

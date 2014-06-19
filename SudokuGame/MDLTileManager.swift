@@ -13,6 +13,7 @@ class MDLTileManager{
         var currentValue = 0;
         var solutionValue = 0;
         var isGiven = false;
+        var isHighlighted = false;
         func isCorrect() -> Bool{
             return (solutionValue != 0) && (currentValue == solutionValue);
         }
@@ -22,13 +23,17 @@ class MDLTileManager{
     
     init(){
         for _ in 0...80{
-            tiles.append(TileModel(currentValue: 1, solutionValue: 2, isGiven: false));
+            tiles.append(TileModel(currentValue: 0, solutionValue: 2, isGiven: false, isHighlighted: false));
         }
     }
     
     func setValue(value: Int, ofTileWithIndex index:TileIndex) -> Bool{
         tiles[index.toID()].currentValue = value;
         return self.isCorrect_tileIndex(index);
+    }
+    
+    func setHighlighted(highlighted:Bool, tileWithIndex index:TileIndex){
+        tiles[index.toID()].isHighlighted = highlighted;
     }
     
     func valueforTileIndex(index: TileIndex) -> Int{
