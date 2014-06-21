@@ -9,10 +9,10 @@
 import UIKit
 
 extension UISudokuboardView{
-    func setState(state:TileState?, forTileAtIndex index:TileIndex){
+    func setState(state:TileState?, forTileAtIndexPath path:TileIndexPath){
         if(!state) { return; }
         
-        var tileView = self.subviews[index.toID()] as UIView
+        var tileView = self.subviews[path.toIndex()] as UIView
         switch state! {
         case TileState.None:
             tileView.layer.borderColor = UIColor.blackColor().CGColor;
@@ -21,23 +21,29 @@ extension UISudokuboardView{
             tileView.layer.borderColor = UIColor.greenColor().CGColor;
             break;
         case TileState.Highlighted:
-            tileView.layer.borderColor = UIColor.yellowColor().CGColor;
+            tileView.layer.borderColor = UIColor.blueColor().CGColor;
             break;
         case TileState.Correct:
-            tileView.layer.borderColor = UIColor.blueColor().CGColor;
+            tileView.layer.borderColor = UIColor.yellowColor().CGColor;
             break;
         case TileState.Wrong:
             tileView.layer.borderColor = UIColor.redColor().CGColor;
             break;
         }
-        tileViewModels[index.toID()].selectedState = state!;
+        tileViewModels[path.toIndex()].selectedState = state!;
     }
     
-    func setValue(value:Int?, forTileAtIndex index:TileIndex){
+    func setValue(value:Int?, forTileAtIndex path:TileIndexPath){
         if(!value) { return; }
         
-        var tileView = self.subviews[index.toID()] as UIView
+        var tileView = self.subviews[path.toIndex()] as UIView
         (tileView.subviews[0] as UILabel).text = (value == 0) ? "" : value.description;
-        tileViewModels[index.toID()].currentValue = value!;
+        tileViewModels[path.toIndex()].currentValue = value!;
+    }
+    
+    func highlightIndexPathes(pathSet: Array<TileIndexPath>){
+        for path in pathSet{
+            self.setState(TileState.Highlighted, forTileAtIndexPath: path);
+        }
     }
 }

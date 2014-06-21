@@ -7,8 +7,10 @@
 //
 
 import XCTest
+import SudokuGame
 
 class SudokuGameTests: XCTestCase {
+    var tilemanager = MDLTileManager();
     
     override func setUp() {
         super.setUp()
@@ -20,16 +22,40 @@ class SudokuGameTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        XCTAssert(true, "Pass")
+    func testReturnTileRow(){
+        
+        for row in 1...9{
+            var actual = tilemanager.tilesInRow(row);
+            NSLog("Row\(row): Returned with \(actual.count) tiles.");
+            for column in 1...9{
+                var tile = tilemanager.tileAtIndexPath(TileIndexPath(row: row, column: column));
+                NSLog("Row\(row): Comparing tileID \(tile!.ID)");
+                XCTAssertEqual(actual[column-1].ID, tile!.ID, "", file: "", line: 0);
+                NSLog("Sub Passed");
+            }
+        }
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock() {
-            // Put the code you want to measure the time of here.
+    func testReturnTileColumn(){
+        for column in 1...9{
+            var actual = tilemanager.tilesInColumn(column);
+            NSLog("Column\(column): Returned with \(actual.count) tiles.");
+            for row in 1...9{
+                var tile = tilemanager.tileAtIndexPath(TileIndexPath(row: row, column: column));
+                NSLog("Column\(column): Comparing tileID \(tile!.ID)");
+                XCTAssertEqual(actual[row-1].ID, tile!.ID, "", file: "", line: 0);
+                NSLog("Sub Passed");
+            }
         }
+    }
+    
+    func testStructPerformance(){
+        
+        var tile = tilemanager.tilesAtIndexes(NSIndexSet(index: 0))[0];
+        tile.ID = 99;
+        XCTAssertNotEqual(tile.ID, tilemanager.tiles[0].ID, "", file: "", line: 0);
+        tilemanager.tiles[0].ID = 99;
+        XCTAssertEqual(tile.ID, tilemanager.tiles[0].ID, "", file: "", line: 0);
     }
     
 }

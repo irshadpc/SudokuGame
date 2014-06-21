@@ -15,7 +15,7 @@ class UISudokuboardView: UIView, UISudokuInputViewDelegate {
     var datasource: UISudokuboardViewDatasource?
     
     var _inputView:UIView? //View for editing
-    var indexForEditting = TileIndex(row: 0, column: 0) //Index of the tile being edited when instance becomes first responder
+    var indexForEditting = TileIndexPath(row: 0, column: 0) //Index of the tile being edited when instance becomes first responder
     
     //Keep track of tile dimensions to determine location of touches
     let tileWidth: CGFloat
@@ -53,7 +53,7 @@ class UISudokuboardView: UIView, UISudokuInputViewDelegate {
         for row in 1...9{
             for column in 1...9{
                 
-                var index = TileIndex(row: row, column: column);
+                var path = TileIndexPath(row: row, column: column);
                 var tileView = UIView(frame: CGRectMake(CGFloat(column-1)*tileWidth, CGFloat(row-1)*tileHeight, tileWidth, tileHeight))
                 var labelView = UILabel(frame: CGRectMake(0, 0, tileWidth, tileHeight));
                 
@@ -73,10 +73,10 @@ class UISudokuboardView: UIView, UISudokuInputViewDelegate {
                 }
 
                 tileView.layer.borderWidth = 1;
-                tileView.tag = index.toID();
+                tileView.tag = path.toIndex();
                 
                 self.addSubview(tileView);
-                tileViewModels.append(SudokuTile(selectedState: TileState.None, currentValue: 0, imageName: nil, position: index));
+                tileViewModels.append(SudokuTile(selectedState: TileState.None, currentValue: 0, imageName: nil, position: path));
             }
         }
     }

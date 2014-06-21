@@ -9,8 +9,8 @@
 import Foundation
 
 class GameManager: UISudokuboardViewDelegate, UISudokuboardViewDatasource{
-    let NotSelected = TileIndex(row: 0, column: 0);
-    var currentlySelectedTile = TileIndex(row: 0, column: 0);
+    let NotSelected = TileIndexPath(row: 0, column: 0);
+    var currentlySelectedTile = TileIndexPath(row: 0, column: 0);
     var tilemanager = MDLTileManager();
     
     init(){
@@ -21,7 +21,7 @@ class GameManager: UISudokuboardViewDelegate, UISudokuboardViewDatasource{
         
     }
     
-    func sudokuboardView(gameboard:UISudokuboardView!, userTapped_sudokutileAtIndex index:TileIndex, inout onChange needsUpdate:Array<TileIndex>) -> Bool{
+    func sudokuboardView(gameboard:UISudokuboardView!, userTapped_sudokutileAtIndex index:TileIndexPath, inout onChange needsUpdate:Array<TileIndexPath>) -> Bool{
         needsUpdate.append(index);
         if(currentlySelectedTile == index){
             currentlySelectedTile = NotSelected;
@@ -32,16 +32,16 @@ class GameManager: UISudokuboardViewDelegate, UISudokuboardViewDatasource{
         return true;
     }
     
-    func sudokuboardView(gameboard:UISudokuboardView!, userInput_sudokutileAtIndex index:TileIndex, withValue value:Int){
-        tilemanager.setValue(value, ofTileWithIndex: index);
+    func sudokuboardView(gameboard:UISudokuboardView!, userInput_sudokutileAtIndex index:TileIndexPath, withValue value:Int){
+        tilemanager.setValue(value, ofTileAtIndexPath: index);
     }
     
     
-    func sudokuboardView(gameboard:UISudokuboardView!, currentValue_sudokutileWithIndex index:TileIndex) -> Int{
-        return tilemanager.valueforTileIndex(index);
+    func sudokuboardView(gameboard:UISudokuboardView!, currentValue_sudokutileWithIndex index:TileIndexPath) -> Int?{
+        return tilemanager.tileAtIndexPath(index)?.currentValue;
     }
     
-    func sudokuboardView(gameboard:UISudokuboardView!, selectionState_forsudokutileWithIndex index:TileIndex) -> TileState{
+    func sudokuboardView(gameboard:UISudokuboardView!, selectionState_forsudokutileWithIndex index:TileIndexPath) -> TileState{
         return (currentlySelectedTile == index) ? TileState.Selected : TileState.None;
     }
     

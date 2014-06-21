@@ -13,9 +13,8 @@ extension UISudokuboardView{
     *  Handles single touch taps from users made on the sudoku board
     */
     func handleTap(sender:UIGestureRecognizer){
-    
         var index = self.indexFromLocation(sender.locationInView(self)); //Get tile tap was located in
-        var results: Array<TileIndex> = Array(); //Will contain the result of which TileViews need to be updated
+        var results: Array<TileIndexPath> = Array(); //Will contain the result of which TileViews need to be updated
     
     
         var needsInput = delegate?.sudokuboardView(self, userTapped_sudokutileAtIndex: index, onChange: &results) //Yes if datamodel changed.
@@ -27,7 +26,7 @@ extension UISudokuboardView{
         }
     }
 
-    func indexFromLocation(location:CGPoint) -> TileIndex{
-        return TileIndex(row: Int(location.y/tileHeight)+1, column: Int(location.x/tileWidth)+1);
+    func indexFromLocation(location:CGPoint) -> TileIndexPath{
+        return TileIndexPath(row: Int(location.y/tileHeight)+1, column: Int(location.x/tileWidth)+1);
     }
 }

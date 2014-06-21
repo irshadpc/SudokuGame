@@ -12,24 +12,26 @@ extension UISudokuboardView{
     */
     func reloadData(){
         for ID in 0...self.subviews.count-1{
-            self.updateSudokutiles(allTileIndexes());
+            self.updateSudokutiles(allTileIndexPathes());
         }
     }
     
-    func allTileIndexes() -> Array<TileIndex>{
-        var result = Array<TileIndex>();
+    func allTileIndexPathes() -> Array<TileIndexPath>{
+        var result = Array<TileIndexPath>();
         for row in 1...9{
             for column in 1...9{
-                result.append(TileIndex(row: row, column: column));
+                result.append(TileIndexPath(row: row, column: column));
             }
         }
         return result;
     }
     
-    func updateSudokutiles(tiles:Array<TileIndex>){
+    func updateSudokutiles(tiles:Array<TileIndexPath>){
         for index in tiles{
-            self.setValue(self.datasource?.sudokuboardView(self, currentValue_sudokutileWithIndex: index), forTileAtIndex: index);
-            self.setState(self.datasource?.sudokuboardView(self, selectionState_forsudokutileWithIndex: index), forTileAtIndex: index);
+            var newValue = self.datasource?.sudokuboardView(self, currentValue_sudokutileWithIndex: index);
+            var newState = self.datasource?.sudokuboardView(self, selectionState_forsudokutileWithIndex: index);
+            self.setValue(newValue, forTileAtIndex: index);
+            self.setState(newState, forTileAtIndexPath: index);
         }
     }
 }
