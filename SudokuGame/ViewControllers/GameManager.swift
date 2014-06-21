@@ -34,6 +34,9 @@ class GameManager: UISudokuboardViewDelegate, UISudokuboardViewDatasource{
     
     func sudokuboardView(gameboard:UISudokuboardView!, userInput_sudokutileAtIndex index:TileIndexPath, withValue value:Int){
         tilemanager.setValue(value, ofTileAtIndexPath: index);
+        if(SudokuSequence.isWinningSequence(tilemanager.tilesAtIndexPaths(TileIndexPath.indexPathesOfRow(index.row)))){
+            gameboard.highlightIndexPathes(TileIndexPath.indexPathesOfRow(index.row));
+        }
     }
     
     
