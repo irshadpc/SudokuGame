@@ -24,7 +24,7 @@ class UISudokuboardView: UIView, UISudokuInputViewDelegate {
     //Lazily loaded input view.
     func inputView() -> UIView{
         if(_inputView == nil){
-            var customView = NSBundle.mainBundle().loadNibNamed("UISudokuInputView", owner: self, options: nil)[0] as UISudokuInputView;
+            let customView = NSBundle.mainBundle().loadNibNamed("UISudokuInputView", owner: self, options: nil)[0] as UISudokuInputView;
             customView.delegate = self;
             _inputView = customView;
         }
@@ -42,20 +42,20 @@ class UISudokuboardView: UIView, UISudokuInputViewDelegate {
         tileHeight = frame.height/9;
         super.init(frame: frame)
         
-        var singleTapRecognizer = UITapGestureRecognizer(target: self, action: Selector("handleTap:"));
-        var doubleTapRecognizer = UITapGestureRecognizer(target: self, action: Selector("handleDoubleTap:"));
-        var longTapRecognizer = UILongPressGestureRecognizer(target: self, action: Selector("handleLongTap:"));
+        let singleTapRecognizer = UITapGestureRecognizer(target: self, action: Selector("handleTap:"));
+        let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: Selector("handleDoubleTap:"));
+        let longTapRecognizer = UILongPressGestureRecognizer(target: self, action: Selector("handleLongTap:"));
         self.addGestureRecognizer(singleTapRecognizer);
         
-        var sublabelWidth = tileWidth/3;
-        var sublabelHeight = tileHeight/3;
+        let sublabelWidth = tileWidth/3;
+        let sublabelHeight = tileHeight/3;
         
         for row in 1...9{
             for column in 1...9{
                 
-                var path = TileIndexPath(row: row, column: column);
-                var tileView = UIView(frame: CGRectMake(CGFloat(column-1)*tileWidth, CGFloat(row-1)*tileHeight, tileWidth, tileHeight))
-                var labelView = UILabel(frame: CGRectMake(0, 0, tileWidth, tileHeight));
+                let path = TileIndexPath(row: row, column: column);
+                let tileView = UIView(frame: CGRectMake(CGFloat(column-1)*tileWidth, CGFloat(row-1)*tileHeight, tileWidth, tileHeight))
+                let labelView = UILabel(frame: CGRectMake(0, 0, tileWidth, tileHeight));
                 
                 labelView.textAlignment = NSTextAlignment.Center;
                 labelView.font = UIFont.systemFontOfSize(26);
@@ -64,8 +64,9 @@ class UISudokuboardView: UIView, UISudokuInputViewDelegate {
                 
                 for subrow in 0...2{
                     for subcolumn in 0...2{
-                        var sublabelView = UILabel(frame: CGRectMake(CGFloat(subcolumn) * sublabelWidth, CGFloat(subrow) * sublabelHeight, sublabelWidth, sublabelHeight));
+                        let sublabelView = UILabel(frame: CGRectMake(CGFloat(subcolumn) * sublabelWidth, CGFloat(subrow) * sublabelHeight, sublabelWidth, sublabelHeight));
                         sublabelView.textAlignment = NSTextAlignment.Center;
+                        sublabelView.textColor = UIColor.blueColor();
                         sublabelView.text = "\(subrow*3 + subcolumn + 1)";
                         sublabelView.hidden = true;
                         tileView.addSubview(sublabelView);

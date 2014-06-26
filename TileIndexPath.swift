@@ -11,6 +11,19 @@ import Foundation
 struct TileIndexPath{
     var row: Int
     var column: Int
+  
+   func box() -> Int{
+        var boxColumn = (Int((column-1)/3) * 3) + 1;
+   
+        if(boxColumn == 1) { return self.bowRow(); }
+    
+        return self.bowRow() + ((boxColumn == 2) ? 1 : 2);
+    }
+    
+    //boxRow gets it own function because it's more descriptive than boxColumn
+    func bowRow() -> Int{
+        return (Int((row-1)/3) * 3) + 1;
+    }
     
     func toIndex() -> Int{
         return ((row-1) * 9) + column - 1;
@@ -40,21 +53,22 @@ struct TileIndexPath{
     
     static func indexPathesOfBox(box: Int) -> Array<TileIndexPath>{
         var result = Array<TileIndexPath>();
-        var boxRow:Int = (box+2)/3;
-        var boxColumn:Int = (box%3 == 0) ? 3 : box%3;
-        var start = (3*(boxRow-1)+1)
+        let boxRow:Int = (box+2)/3;
+        let boxColumn:Int = (box%3 == 0) ? 3 : box%3;
+        let startrow = (3*(boxRow-1)+1)
+        let startcolumn = (3*(boxColumn-1)+1)
         
-        for row in start...start+2{
-            for column in start...start+2{
+        for row in startrow...startrow+2{
+            for column in startcolumn...startcolumn+2{
                 result.append(TileIndexPath(row: row, column: column));
             }
         }
         return result;
         
     }
-    init(value:Int){
-        self.row =  Int((value/9)+1);
-        self.column = (value%9)+1;
+    init(index:Int){
+        self.row =  Int((index/9)+1);
+        self.column = (index%9)+1;
     }
     
     init(row: Int, column: Int){

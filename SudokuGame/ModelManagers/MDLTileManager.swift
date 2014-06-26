@@ -10,54 +10,48 @@ import Foundation
 
 class MDLTileManager{
     struct TileModel{
-        var ID = 0;
+        let ID: Int;
+        var isGiven: Bool{
+            didSet{
+                if(isGiven == true){ possibleValues.removeAll() }
+            }
+        }
+        var possibleValues = Int[]();
+        
         var currentValue = 0;
         var solutionValue = 0;
-        var isGiven = false;
         var isHighlighted = false;
         func isCorrect() -> Bool{
             return (solutionValue != 0) && (currentValue == solutionValue);
         }
+        
+        init(ID: Int, currentValue current: Int, solutionValue solution: Int, isGiven given:Bool, isHighlighted highlighted:Bool){
+            self.ID = ID;
+            self.currentValue = current;
+            self.solutionValue = solution;
+            self.isGiven = given;
+            self.isHighlighted = highlighted;
+            
+            if(!given){
+                for possibleValue in 1...9{
+                    possibleValues.append(possibleValue);
+                }
+            }
+        }
+        
     }
     
     var tiles = Array<TileModel>();
     
     init(){
         for ID in 0...80{
-            tiles.append(TileModel(ID: ID+1, currentValue: 0, solutionValue: 2, isGiven: false, isHighlighted: false));
+            tiles.append(TileModel(ID: ID+1, currentValue: 0, solutionValue: 0, isGiven: false, isHighlighted: false));
         }
-    }
-    
-    func setValue(value: Int, ofTileAtIndexPath path:TileIndexPath) -> Bool{
-        return self.setValue(value, ofTileAtIndex: path.toIndex());
-    }
-    
-    func setValue(value: Int, ofTileAtIndex index:Int) -> Bool{
-        if(!isValidIndex(index)) { return false; }
-        tiles[index].currentValue = value;
-        return tiles[index].isCorrect();
-    }
-    
-    func setHighlighted(highlighted:Bool, tileAtIndexPath path:TileIndexPath){
-        self.setHighlighted(highlighted, tileAtIndex: path.toIndex());
-    }
-    
-    func setHighlighted(highlighted:Bool, tileAtIndex index:Int){
-        tiles[index].isHighlighted = highlighted;
     }
     
     func isValidIndex(index: Int) -> Bool{
         if(index < 0 || index > tiles.count) { return false; }
         return true;
-    }
-    
-    func tileAtIndexPath(path: TileIndexPath) -> TileModel?{
-        return self.tileAtIndex(path.toIndex());
-    }
-    
-    func tileAtIndex(index: Int) -> TileModel?{
-        if(!self.isValidIndex(index)) { return nil; }
-        return tiles[index];
     }
     
     func tileWithID(ID: Int) -> TileModel?{
@@ -67,8 +61,21 @@ class MDLTileManager{
         }
         return nil;
     }
+    
+    func solutionsAtIndexPaths(indexPaths: TileIndexPath[]) -> Int[]{
+        var result = Array<Int>();
+        
+        for path in indexPaths{
+            var index = path.toIndex();
+            if(tiles[index].currentValue > 0){
+                result.append(tiles[index].currentValue);
+            }
+        }
+        
+        return result;
+    }
 
-    func tilesAtIndexPaths(indexPaths: Array<TileIndexPath>) -> Array<TileModel>{
+    func tilesAtIndexPaths(indexPaths: TileIndexPath[]) -> TileModel[]{
         var result = Array<TileModel>();
         
         for path in indexPaths{

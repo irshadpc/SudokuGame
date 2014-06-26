@@ -27,8 +27,8 @@ class GameScreenVC: UIViewController{
 
     var mode = GameMode.Classic
     var difficulty  = GameDifficulty.Easy
-    var gameboard = UISudokuboardView(frame: CGRectMake(50, 50, 450, 450))
-    var gamemanager = GameManager()
+    let gameboard = UISudokuboardView(frame: CGRectMake(50, 50, 450, 450))
+    let gamemanager = GameManager()
     
     init(coder aDecoder: NSCoder!){
         super.init(coder: aDecoder);
@@ -50,6 +50,10 @@ class GameScreenVC: UIViewController{
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func advancePressed(sender: UIButton) {
+        gamemanager.advanceSolver();
+        gameboard.reloadData();
+    }
     
     
     /*

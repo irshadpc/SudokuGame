@@ -6,14 +6,14 @@
 //  Copyright (c) 2014 Alfred Cepeda. All rights reserved.
 //
 
+import Foundation
+
 extension UISudokuboardView{
     /**
     *   Makes a call to the datasource in order to update all the views and get the most current state from the data model.
     */
     func reloadData(){
-        for ID in 0...self.subviews.count-1{
-            self.updateSudokutiles(allTileIndexPathes());
-        }
+        self.updateSudokutilesAtIndexPaths(allTileIndexPathes());
     }
     
     func allTileIndexPathes() -> Array<TileIndexPath>{
@@ -26,12 +26,22 @@ extension UISudokuboardView{
         return result;
     }
     
-    func updateSudokutiles(tiles:Array<TileIndexPath>){
-        for index in tiles{
-            var newValue = self.datasource?.sudokuboardView(self, currentValue_sudokutileWithIndex: index);
-            var newState = self.datasource?.sudokuboardView(self, selectionState_forsudokutileWithIndex: index);
-            self.setValue(newValue, forTileAtIndex: index);
-            self.setState(newState, forTileAtIndexPath: index);
+    func updateSudokutilesAtIndexPaths(paths:Array<TileIndexPath>){
+        for path in paths{
+            if let newValue = self.datasource?.sudokuboardView(self, currentValue_forSudokutileWithIndexPath: path){
+                self.setValue(newValue, forTileAtIndexPath: path);
+                if(newValue == 0){ //There's no value there, display possibles if there are any{
+                    if let newPossibles = self.datasource?.sudokuboardView(self, solutionPossibles_forSudokutileWithIndexPath: path){
+                        NSLog("\(path.toIndex()), \(newPossibles.count)");
+                        self.setPossibles(newPossibles, forTileAtIndexPath: path); }
+                } else{
+                    self.clearPossiblesForTileAtIndexPath(path);
+                }
+            }
+            
+            if let newState = self.datasource?.sudokuboardView(self, selectionState_forSudokutileWithIndexPath: path){
+                self.setState(newState, forTileAtIndexPath: path); }
+            
         }
     }
 }
@@ -46,8 +56,8 @@ extension UISudokuboardView{
     }
     
     func sudokuInputView(inputView: UISudokuInputView!, userInputValue value: Int) -> Bool {
-        self.delegate?.sudokuboardView(self, userInput_sudokutileAtIndex: indexForEditting, withValue: value);
-        self.setValue(value, forTileAtIndex: indexForEditting);
+        self.delegate?.sudokuboardView(self, userInput_sudokutileAtIndexPath: indexForEditting, withValue: value);
+        self.updateSudokutilesAtIndexPaths([indexForEditting]);
         self.resignFirstResponder();
         return true;
     }

@@ -9,11 +9,9 @@
 import UIKit
 
 extension UISudokuboardView{
-    func setState(state:TileState?, forTileAtIndexPath path:TileIndexPath){
-        if(!state) { return; }
-        
-        var tileView = self.subviews[path.toIndex()] as UIView
-        switch state! {
+    func setState(state:TileState, forTileAtIndexPath path:TileIndexPath){
+        let tileView = self.subviews[path.toIndex()] as UIView
+        switch state {
         case TileState.None:
             tileView.layer.borderColor = UIColor.blackColor().CGColor;
             break;
@@ -30,15 +28,30 @@ extension UISudokuboardView{
             tileView.layer.borderColor = UIColor.redColor().CGColor;
             break;
         }
-        tileViewModels[path.toIndex()].selectedState = state!;
+        tileViewModels[path.toIndex()].selectedState = state;
     }
     
-    func setValue(value:Int?, forTileAtIndex path:TileIndexPath){
-        if(!value) { return; }
-        
-        var tileView = self.subviews[path.toIndex()] as UIView
+    func setValue(value:Int, forTileAtIndexPath path:TileIndexPath){
+        let tileView = self.subviews[path.toIndex()] as UIView
         (tileView.subviews[0] as UILabel).text = (value == 0) ? "" : value.description;
-        tileViewModels[path.toIndex()].currentValue = value!;
+        tileViewModels[path.toIndex()].currentValue = value;
+    }
+    
+    func setPossibles(possibles:Int[], forTileAtIndexPath path:TileIndexPath){
+        let tileview = self.subviews[path.toIndex()] as UIView
+        
+        self.clearPossiblesForTileAtIndexPath(path);
+        //Apply new possibles
+        for possible in possibles{
+            (tileview.subviews[possible] as UIView).hidden = false;
+        }
+    }
+    
+    func clearPossiblesForTileAtIndexPath(path: TileIndexPath){
+        let tileview = self.subviews[path.toIndex()] as UIView
+        for index in 1...9{
+            (tileview.subviews[index] as UIView).hidden = true;
+        }
     }
     
     func highlightIndexPathes(pathSet: Array<TileIndexPath>){

@@ -14,7 +14,7 @@ class SudokuSequence{
     class func isWinningSequence(tiles: Array<TileModel>) -> Bool{
         if(tiles.count != 9) { return false; }
         
-        var result = NSMutableIndexSet();
+        let result = NSMutableIndexSet();
         for tile in tiles{
             if(tile.currentValue > 0){
                 result.addIndex(tile.currentValue); }

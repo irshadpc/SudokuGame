@@ -153,7 +153,22 @@
                     <view key="view" contentMode="scaleToFill" id="6Nf-mT-uV0">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fHB-5e-xGs">
+                                <rect key="frame" x="20" y="430" width="60" height="30"/>
+                                <state key="normal" title="Advance">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="advancePressed:" destination="XoS-MQ-OhO" eventType="touchUpInside" id="TJe-X5-4zP"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="fHB-5e-xGs" firstAttribute="leading" secondItem="6Nf-mT-uV0" secondAttribute="leading" constant="20" id="Ob0-Za-ZZ9"/>
+                            <constraint firstItem="plq-Ua-I3F" firstAttribute="top" secondItem="fHB-5e-xGs" secondAttribute="bottom" constant="20" id="TLz-UJ-fAZ"/>
+                        </constraints>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                 </viewController>

@@ -16,22 +16,23 @@ class NewGameVC: UIViewController, UICollectionViewDataSource {
     
     init(coder aDecoder: NSCoder!){
         super.init(coder: aDecoder);
+        
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
+        
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!){
         
-        var destination = segue.destinationViewController as GameScreenVC;
+        let destination = segue.destinationViewController as GameScreenVC;
         destination.mode = GameMode.fromRaw(sgmtMode.selectedSegmentIndex)!;
         destination.difficulty = GameDifficulty.fromRaw(sgmtMode.selectedSegmentIndex)!;
     }
