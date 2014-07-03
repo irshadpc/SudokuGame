@@ -32,7 +32,6 @@ extension UISudokuboardView{
                 self.setValue(newValue, forTileAtIndexPath: path);
                 if(newValue == 0){ //There's no value there, display possibles if there are any{
                     if let newPossibles = self.datasource?.sudokuboardView(self, solutionPossibles_forSudokutileWithIndexPath: path){
-                        NSLog("\(path.toIndex()), \(newPossibles.count)");
                         self.setPossibles(newPossibles, forTileAtIndexPath: path); }
                 } else{
                     self.clearPossiblesForTileAtIndexPath(path);

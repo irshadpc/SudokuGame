@@ -83,4 +83,41 @@ class MDLTileManager{
         }
         return result;
     }
+    
+    func tilePathsWithPossibles(possibles: Int[], inUnit unit: Int, ofType type: UnitType) -> Array<TileIndexPath>{
+        var result = TileIndexPath[]();
+        let indexPaths = TileIndexPath.indexPathsOfUnit(unit, ofUnitType: type);
+        for path in indexPaths{
+            var values = tiles[path.toIndex()].possibleValues;
+            if(values == possibles){
+                result.append(path);
+            }
+        }
+        return result;
+    }
+    
+    func tilePathsWithPieceOfPossibles(possibles: Int[], inUnit unit: Int, ofType type: UnitType) -> Array<TileIndexPath>{
+        var result = TileIndexPath[]();
+        let indexPaths = TileIndexPath.indexPathsOfUnit(unit, ofUnitType: type);
+        for path in indexPaths{
+            var values = tiles[path.toIndex()].possibleValues;
+            if(array(possibles, contains: values)){
+                result.append(path);
+            }
+        }
+        return result;
+    }
+    
+    func removePossibles(possibles: Int[], atIndexPaths indexPaths:TileIndexPath[]) -> Bool{
+        var removedPossibles = false;
+        for path in indexPaths{
+            tiles[path.toIndex()].possibleValues = tiles[path.toIndex()].possibleValues.filter( {
+                if(array(possibles, contains: [$0]) == true){
+                    removedPossibles = true;
+                    return false; };
+                return true;
+            });
+        }
+        return removedPossibles;
+    }
 }

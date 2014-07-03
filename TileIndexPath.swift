@@ -8,7 +8,13 @@
 
 import Foundation
 
-struct TileIndexPath{
+enum UnitType:Int{
+    case Row
+    case Column
+    case Box
+}
+
+struct TileIndexPath: Equatable{
     var row: Int
     var column: Int
   
@@ -31,6 +37,18 @@ struct TileIndexPath{
     
     func pathByIncrementFactor(factor: TileIndexPath) -> TileIndexPath{
         return TileIndexPath(row: row+factor.row, column: column+factor.column);
+    }
+    
+    static func indexPathsOfUnit(unit:Int, ofUnitType type:UnitType) -> Array<TileIndexPath>{
+        var result = TileIndexPath[]();
+        switch type{
+        case UnitType.Row:
+            return indexPathesOfRow(unit);
+        case UnitType.Column:
+            return indexPathesOfColumn(unit);
+        case UnitType.Box:
+            return indexPathesOfBox(unit);
+        }
     }
     
     static func indexPathesOfRow(row: Int) -> Array<TileIndexPath>{
@@ -68,7 +86,7 @@ struct TileIndexPath{
     }
     init(index:Int){
         self.row =  Int((index/9)+1);
-        self.column = (index%9)+1;
+        self.column = (index == 0) ? 1 : (index%9);
     }
     
     init(row: Int, column: Int){
@@ -78,13 +96,7 @@ struct TileIndexPath{
     
 }
 
-@infix func == (left: TileIndexPath?, right: TileIndexPath?) -> Bool {
-    if(!left? || !right?){ return false; }
-    
-    return (left!.row == right!.row) && (left!.column == right!.column);
-}
 
-
-@infix func != (left: TileIndexPath?, right: TileIndexPath?) -> Bool {
-    return !(left == right)
+@infix func == (lhs: TileIndexPath, rhs: TileIndexPath) -> Bool {
+    return (lhs.row == rhs.row) && (lhs.column == rhs.column);
 }

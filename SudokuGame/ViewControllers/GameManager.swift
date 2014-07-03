@@ -11,36 +11,38 @@ import Foundation
 class GameManager: UISudokuboardViewDelegate, UISudokuboardViewDatasource{
     let NotSelected = TileIndexPath(row: 0, column: 0);
     let tilemanager = MDLTileManager();
+    let solver:SudokuSolver;
     var currentlySelectedTile = TileIndexPath(row: 0, column: 0);
     
     
-    let positions = [TileIndexPath(row: 1, column: 1), TileIndexPath(row: 1, column: 4),
-        TileIndexPath(row: 1, column: 6), TileIndexPath(row: 1, column: 7),
-        TileIndexPath(row: 1, column: 9), TileIndexPath(row: 2, column: 2),
-        TileIndexPath(row: 2, column: 5), TileIndexPath(row: 2, column: 8),
-        TileIndexPath(row: 3, column: 1), TileIndexPath(row: 3, column: 3),
-        TileIndexPath(row: 3, column: 6), TileIndexPath(row: 3, column: 7),
-        TileIndexPath(row: 4, column: 1), TileIndexPath(row: 4, column: 3),
-        TileIndexPath(row: 4, column: 4), TileIndexPath(row: 4, column: 6),
-        TileIndexPath(row: 4, column: 9), TileIndexPath(row: 5, column: 2),
-        TileIndexPath(row: 5, column: 8), TileIndexPath(row: 6, column: 1),
-        TileIndexPath(row: 6, column: 4), TileIndexPath(row: 6, column: 6),
-        TileIndexPath(row: 6, column: 7), TileIndexPath(row: 6, column: 9),
-        TileIndexPath(row: 7, column: 3), TileIndexPath(row: 7, column: 4),
-        TileIndexPath(row: 7, column: 7), TileIndexPath(row: 7, column: 9),
-        TileIndexPath(row: 8, column: 2), TileIndexPath(row: 8, column: 5),
-        TileIndexPath(row: 8, column: 8), TileIndexPath(row: 9, column: 1),
-        TileIndexPath(row: 9, column: 3), TileIndexPath(row: 9, column: 4),
-        TileIndexPath(row: 9, column: 6), TileIndexPath(row: 9, column: 9)]
-    let givens = [6,1,8,2,3,2,4,9,8,3,5,4,5,4,6,7,9,3,5,7,8,3,1,2,1,7,9,6,8,3,2,3,2,9,4,5];
+    let positions = [TileIndexPath(row: 2, column: 3), TileIndexPath(row: 2, column: 4),
+        TileIndexPath(row: 2, column: 7), TileIndexPath(row: 3, column: 1), TileIndexPath(row: 3, column: 2),
+        TileIndexPath(row: 3, column: 4), TileIndexPath(row: 3, column: 5), TileIndexPath(row: 3, column: 8),
+        TileIndexPath(row: 4, column: 1), TileIndexPath(row: 4, column: 4), TileIndexPath(row: 4, column: 8),
+        TileIndexPath(row: 4, column: 9), TileIndexPath(row: 5, column: 3), TileIndexPath(row: 5, column: 7),
+        TileIndexPath(row: 6, column: 1), TileIndexPath(row: 6, column: 2), TileIndexPath(row: 6, column: 6),
+        TileIndexPath(row: 6, column: 9), TileIndexPath(row: 7, column: 2), TileIndexPath(row: 7, column: 5),
+        TileIndexPath(row: 7, column: 6), TileIndexPath(row: 7, column: 8), TileIndexPath(row: 7, column: 9),
+        TileIndexPath(row: 8, column: 3), TileIndexPath(row: 8, column: 6), TileIndexPath(row: 8, column: 7)];
+    let givens = [1,9,5,5,6,3,1,9,1,6,2,8,4,7,2,7,4,3,4,6,8,3,5,2,5,9];
     
     init(){
-        SudokuSolver.generatePuzzle(tilemanager, withGivens: givens, atPositions: positions);
+        solver = SudokuSolver(manager: tilemanager);
+        solver.generatePuzzle(givens, atPositions: positions);
     }
     
     func advanceSolver(){
-        SudokuSolver.checkforPossibles(tilemanager);
-        SudokuSolver.checkforSolvedTiles(tilemanager);
+        if(solver.checkforPossibles()) { NSLog("Possibles found"); }
+        else { NSLog("No possibles found");
+            if(solver.checkforSolvedTiles()) { NSLog("Solved tiles found"); }
+            else { NSLog("No solved tiles founds");
+                if(solver.checkForHiddenSingles()){ NSLog("Hidden singles found"); }
+                else{ NSLog("No hidden singles found");
+                    if(solver.checkforNakedPairs()) { NSLog("Naked pairs have been found and applied"); }
+                    else { NSLog("No naked tiles found"); }
+                }
+            }
+        }
     }
     
     func GameStarted(){

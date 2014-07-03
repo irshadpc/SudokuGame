@@ -13,6 +13,7 @@ class UISudokuboardView: UIView, UISudokuInputViewDelegate {
     
     var delegate:  UISudokuboardViewDelegate?
     var datasource: UISudokuboardViewDatasource?
+    var test: UISudokuboardViewDelegate?;
     
     var _inputView:UIView? //View for editing
     var indexForEditting = TileIndexPath(row: 0, column: 0) //Index of the tile being edited when instance becomes first responder
