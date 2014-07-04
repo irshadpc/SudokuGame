@@ -33,6 +33,14 @@ func array<T: Equatable>(array:T[], removeElement element: T) -> Array<T>{
     return result;
 }
 
+func array<T:Equatable>(arry:T[], removeElements other: T[]) -> Array<T>{
+    var result = arry.copy();
+    for element in other{
+        result = array(result, removeElement: element);
+    }
+    return result;
+}
+
 func array<T: Equatable>(array:T[], indexesMatchingElement agent: T) -> Array<Int>{
     var result = Int[]();
     

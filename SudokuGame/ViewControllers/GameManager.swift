@@ -32,14 +32,19 @@ class GameManager: UISudokuboardViewDelegate, UISudokuboardViewDatasource{
     }
     
     func advanceSolver(){
-        if(solver.checkforPossibles()) { NSLog("Possibles found"); }
-        else { NSLog("No possibles found");
-            if(solver.checkforSolvedTiles()) { NSLog("Solved tiles found"); }
-            else { NSLog("No solved tiles founds");
-                if(solver.checkForHiddenSingles()){ NSLog("Hidden singles found"); }
-                else{ NSLog("No hidden singles found");
-                    if(solver.checkforNakedPairs()) { NSLog("Naked pairs have been found and applied"); }
-                    else { NSLog("No naked tiles found"); }
+        for unitType in 0...2{
+            for unit in 1...9{
+                var step = 0;
+                var found = false;
+                while(!found){
+                    if let solverStep = SolverStep.fromRaw(step){
+                        var paths = TileIndexPath.indexPathsOfUnit(unit, ofUnitType: UnitType.fromRaw(unitType)!);
+                        found = solver.takeStep(solverStep, withPaths: paths);
+                    } else {
+                        NSLog("No changes made to \(UnitType.fromRaw(unitType)!): \(unit)");
+                        break;
+                    }
+                    step++
                 }
             }
         }
@@ -61,7 +66,7 @@ class GameManager: UISudokuboardViewDelegate, UISudokuboardViewDatasource{
     }
     
     func sudokuboardView(gameboard:UISudokuboardView, userInput_sudokutileAtIndexPath path:TileIndexPath, withValue value:Int){
-        tilemanager.tiles[path.toIndex()].currentValue = value;
+        tilemanager.tiles[path.row-1][path.column-1].currentValue = value;
         if(SudokuSequence.isWinningSequence(tilemanager.tilesAtIndexPaths(TileIndexPath.indexPathesOfRow(path.row)))){
             gameboard.highlightIndexPathes(TileIndexPath.indexPathesOfRow(path.row));
         }
@@ -72,13 +77,13 @@ class GameManager: UISudokuboardViewDelegate, UISudokuboardViewDatasource{
     
     
     func sudokuboardView(gameboard:UISudokuboardView, currentValue_forSudokutileWithIndexPath path:TileIndexPath) -> Int{
-        return tilemanager.tiles[path.toIndex()].currentValue;
+        return tilemanager.tiles[path.row-1][path.column-1].currentValue;
     }
     
     func sudokuboardView(gameboard:UISudokuboardView, selectionState_forSudokutileWithIndexPath path:TileIndexPath) -> TileState{
         return (currentlySelectedTile == path) ? TileState.Selected : TileState.None;
     }
     func sudokuboardView(gameboard:UISudokuboardView, solutionPossibles_forSudokutileWithIndexPath path:TileIndexPath) -> Int[]{
-        return tilemanager.tiles[path.toIndex()].possibleValues
+        return tilemanager.tiles[path.row-1][path.column-1].possibleValues
     }
 }

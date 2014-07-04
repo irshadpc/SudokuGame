@@ -8,16 +8,31 @@
 
 import Foundation
 
-enum UnitType:Int{
+enum UnitType:Int, Printable{
     case Row
     case Column
     case Box
+    
+    var description: String{
+    switch(self){
+        case .Row:
+            return "Row";
+        case .Column:
+            return "Column";
+        case .Box:
+            return "Box";
+        }
+    }
 }
 
-struct TileIndexPath: Equatable{
+struct TileIndexPath: Equatable, Printable{
     var row: Int
     var column: Int
-  
+    
+    var description: String {
+        return "Row: \(row), Column: \(column)";
+    }
+    
    func box() -> Int{
         var boxColumn = (Int((column-1)/3) * 3) + 1;
    
