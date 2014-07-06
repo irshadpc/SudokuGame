@@ -11,20 +11,20 @@ import Foundation
 class GameManager: UISudokuboardViewDelegate, UISudokuboardViewDatasource{
     let NotSelected = TileIndexPath(row: 0, column: 0);
     let tilemanager = MDLTileManager();
-    let solver:SudokuSolver;
+    var solver:SudokuSolver;
     var currentlySelectedTile = TileIndexPath(row: 0, column: 0);
     
     
-    let positions = [TileIndexPath(row: 2, column: 3), TileIndexPath(row: 2, column: 4),
-        TileIndexPath(row: 2, column: 7), TileIndexPath(row: 3, column: 1), TileIndexPath(row: 3, column: 2),
-        TileIndexPath(row: 3, column: 4), TileIndexPath(row: 3, column: 5), TileIndexPath(row: 3, column: 8),
-        TileIndexPath(row: 4, column: 1), TileIndexPath(row: 4, column: 4), TileIndexPath(row: 4, column: 8),
-        TileIndexPath(row: 4, column: 9), TileIndexPath(row: 5, column: 3), TileIndexPath(row: 5, column: 7),
-        TileIndexPath(row: 6, column: 1), TileIndexPath(row: 6, column: 2), TileIndexPath(row: 6, column: 6),
-        TileIndexPath(row: 6, column: 9), TileIndexPath(row: 7, column: 2), TileIndexPath(row: 7, column: 5),
-        TileIndexPath(row: 7, column: 6), TileIndexPath(row: 7, column: 8), TileIndexPath(row: 7, column: 9),
-        TileIndexPath(row: 8, column: 3), TileIndexPath(row: 8, column: 6), TileIndexPath(row: 8, column: 7)];
-    let givens = [1,9,5,5,6,3,1,9,1,6,2,8,4,7,2,7,4,3,4,6,8,3,5,2,5,9];
+    let positions = [TileIndexPath(row: 1, column: 1), TileIndexPath(row: 1, column: 5), TileIndexPath(row: 2, column: 4),
+                        TileIndexPath(row: 2, column: 6), TileIndexPath(row: 2, column: 8), TileIndexPath(row: 3, column: 2),
+                        TileIndexPath(row: 3, column: 6), TileIndexPath(row: 3, column: 9), TileIndexPath(row: 4, column: 5),
+                        TileIndexPath(row: 4, column: 8), TileIndexPath(row: 4, column: 9), TileIndexPath(row: 5, column: 3),
+                        TileIndexPath(row: 5, column: 5), TileIndexPath(row: 5, column: 7), TileIndexPath(row: 6, column: 1),
+                        TileIndexPath(row: 6, column: 2), TileIndexPath(row: 6, column: 5), TileIndexPath(row: 7, column: 1),
+                        TileIndexPath(row: 7, column: 4), TileIndexPath(row: 7, column: 8), TileIndexPath(row: 8, column: 2),
+                        TileIndexPath(row: 8, column: 4), TileIndexPath(row: 8, column: 6), TileIndexPath(row: 9, column: 5),
+                        TileIndexPath(row: 9, column: 9)];
+    let givens = [4,1,3,9,4,7,5,9,6,2,1,4,7,6,1,9,5,9,4,7,3,6,8,3,6];
     
     init(){
         solver = SudokuSolver(manager: tilemanager);
@@ -34,14 +34,15 @@ class GameManager: UISudokuboardViewDelegate, UISudokuboardViewDatasource{
     func advanceSolver(){
         for unitType in 0...2{
             for unit in 1...9{
+                NSLog("\(UnitType.fromRaw(unitType)!): \(unit)");
                 var step = 0;
                 var found = false;
                 while(!found){
                     if let solverStep = SolverStep.fromRaw(step){
-                        var paths = TileIndexPath.indexPathsOfUnit(unit, ofUnitType: UnitType.fromRaw(unitType)!);
-                        found = solver.takeStep(solverStep, withPaths: paths);
+                        solver.paths = TileIndexPath.indexPathsOfUnit(unit, ofUnitType: UnitType.fromRaw(unitType)!);
+                        found = solver.takeStep(solverStep);
                     } else {
-                        NSLog("No changes made to \(UnitType.fromRaw(unitType)!): \(unit)");
+                        //NSLog("No changes made to \(UnitType.fromRaw(unitType)!): \(unit)");
                         break;
                     }
                     step++
