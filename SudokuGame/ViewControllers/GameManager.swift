@@ -27,25 +27,30 @@ class GameManager: UISudokuboardViewDelegate, UISudokuboardViewDatasource{
     let givens = [4,1,3,9,4,7,5,9,6,2,1,4,7,6,1,9,5,9,4,7,3,6,8,3,6];
     
     init(){
-        solver = SudokuSolver(manager: tilemanager);
-        solver.generatePuzzle(givens, atPositions: positions);
+        solver = SudokuSolver();
+        solver.generatePuzzle(givens, atPositions: positions, withTileManager: tilemanager);
     }
     
     func advanceSolver(){
         for unitType in 0...2{
             for unit in 1...9{
                 NSLog("\(UnitType.fromRaw(unitType)!): \(unit)");
-                var step = 0;
-                var found = false;
-                while(!found){
-                    if let solverStep = SolverStep.fromRaw(step){
-                        solver.paths = TileIndexPath.indexPathsOfUnit(unit, ofUnitType: UnitType.fromRaw(unitType)!);
-                        found = solver.takeStep(solverStep);
+                var action = 0;
+                var changeMade = false;
+                while(!changeMade){
+                    if let solverAction = SolverActionApply.fromRaw(action){
+                        let locationsToTraverse = TileIndexPath.indexPathsOfUnit(unit, ofUnitType: UnitType.fromRaw(unitType)!);
+                        solver.tiles = tilemanager.tilesAtIndexPaths(locationsToTraverse);
+                        let result = solver.performAction(solverAction);
+                        changeMade = result.1
+                        if(changeMade){
+                            tilemanager.setValue(result.0, atIndexPaths: locationsToTraverse);
+                        }
                     } else {
                         //NSLog("No changes made to \(UnitType.fromRaw(unitType)!): \(unit)");
                         break;
                     }
-                    step++
+                    action++;
                 }
             }
         }

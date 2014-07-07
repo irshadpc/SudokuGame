@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum SolverStep:Int{
+enum SolverActionApply:Int{
     case NakedSingles
     case Possibles
     case HiddenSingles
@@ -19,8 +19,11 @@ enum SolverStep:Int{
 }
 
 struct SudokuSolver{
-    var manager: MDLTileManager;
-    var paths: TileIndexPath[]!;
+    var tiles: TileModel[]!;
+    
+    init(){
+        
+    }
     
     func getCounter(tiles:TileModel[]) -> Int[][]{
         
@@ -33,11 +36,8 @@ struct SudokuSolver{
         return result;
     }
     
-    init(manager: MDLTileManager){
-        self.manager = manager;
-    }
     
-    func generatePuzzle(givens:Array<Int>, atPositions positions:Array<TileIndexPath>){
+    func generatePuzzle(givens:Array<Int>, atPositions positions:Array<TileIndexPath>, withTileManager manager:MDLTileManager){
         for index in 0...positions.count-1{
             let path = positions[index];
             manager.tiles[path.row-1][path.column-1].currentValue = givens[index];
@@ -45,35 +45,28 @@ struct SudokuSolver{
         }
     }
     
-    func takeStep(step: SolverStep)->Bool{
+    func performAction(step: SolverActionApply)->(TileModel[], Bool){
         var result:(TileModel[], Bool) = (TileModel[](), false);
         switch(step){
             case .NakedSingles:
-                result = applySolvedTiles(manager.tilesAtIndexPaths(paths));
-                break
+                return applySolvedTiles(tiles);
             case .Possibles:
-                result = applyPossibles(manager.tilesAtIndexPaths(paths));
-                break;
+                return applyPossibles(tiles);
             case .HiddenSingles:
-                result = applyHiddenSingles(manager.tilesAtIndexPaths(paths));
-                break;
+                return applyHiddenSingles(tiles);
             case .NakedPairs:
-                result = applyNakedPairs(manager.tilesAtIndexPaths(paths));
-                break;
+                return applyNakedPairs(tiles);
             case .NakedTriples:
-                result = applyNakedTriples(manager.tilesAtIndexPaths(paths));
-                break;
+                return applyNakedTriples(tiles);
             case .HiddenPairs:
                 //result = applyHiddenPairs(manager.tilesAtIndexPaths(paths));
                 break;
             case .HiddenTriples:
-                return false;
+                return result;
             default:
-                return false;
+                return result;
         }
-        
-        if(result.1 == true) { manager.setValue(result.0, atIndexPaths: paths); }
-        return result.1;
+        return result;
     }
     
     
