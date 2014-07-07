@@ -14,7 +14,7 @@ func indexesOfRepeatedValues<T:Equatable>(array:T[]) -> Int[][]{
     
     for(index, element) in enumerate(array){
         //Iterate through rest of array
-        if(!arrayHelp(found, containsElement: element)){
+        if($.contains(found, value: element)){
             var matchFound = false;
             for idx in index+1...array.count-1{
                 if(element == array[idx]){
@@ -30,41 +30,4 @@ func indexesOfRepeatedValues<T:Equatable>(array:T[]) -> Int[][]{
         }
     }
     return result;
-}
-
-func arrayHelp<T:Equatable>(array:T[][], contains other: T[]) -> Bool{
-    if(array.count == 0 || other.count == 0) { return false; }
-    
-    for element in array{
-        if(!arrayHelp(element, contains: other)){
-            return false;
-        }
-    }
-    return true;
-}
-
-func arrayHelp<T: Equatable>(array:T[], contains other:T[]) -> Bool{
-    if(array.count == 0 || other.count == 0) { return false; }
-    
-    var mutable = other;
-    var result = false;
-    
-    for element in other{
-        if(!arrayHelp(array, containsElement: element)){
-            return false;
-        }
-    }
-    
-    return true;
-}
-
-func arrayHelp<T: Equatable>(array:T[], containsElement element:T) -> Bool{
-    if(array.count == 0) { return false; }
-    
-    for agent in array{
-        if(agent == element){
-            return true;
-        }
-    }
-    return false;
 }

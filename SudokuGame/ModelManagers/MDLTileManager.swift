@@ -125,7 +125,7 @@ class MDLTileManager{
         for path in paths{
             var values = tiles[path.row-1][path.column-1].possibleValues;
             if(values.count > 0){
-                if(arrayHelp(possibles, contains: values) && values.count < possibles.count){
+                if($.contains(possibles, value: values) && values.count < possibles.count){
                     result.append(path);
                 }
             }
@@ -137,7 +137,7 @@ class MDLTileManager{
         var removedPossibles = false;
         for path in paths{
             tiles[path.row-1][path.column-1].possibleValues = tiles[path.row-1][path.column-1].possibleValues.filter{
-                if(arrayHelp(possibles, containsElement: $0)){ return true; }
+                if($.contains(possibles, value: $0)){ return true; }
                 else {
                     removedPossibles = true;removedPossibles = true;
                     return false;
@@ -151,7 +151,7 @@ class MDLTileManager{
         var removedPossibles = false;
         for path in paths{
             tiles[path.row-1][path.column-1].possibleValues = tiles[path.row-1][path.column-1].possibleValues.filter{
-                if(!arrayHelp(possibles, containsElement: $0)){ return true; }
+                if(!$.contains(possibles, value: $0)){ return true; }
                 else {
                     removedPossibles = true;
                     return true;
