@@ -56,14 +56,12 @@ struct SudokuSolver{
             case .NakedPairs:
                 return applyNakedPairs(tiles);
             case .HiddenPairs:
-                //result = applyHiddenPairs(manager.tilesAtIndexPaths(paths));
-                break;
+                return applyHiddenPairs(tiles);
             case .HiddenTriples:
                 return result;
             default:
                 return result;
         }
-        return result;
     }
     
     func changePossibles(possibles:Int[], fromTiles models:TileModel[], excludeTiles exclude: TileModel[]?, removePossibles remove: Bool) -> (TileModel[], Bool){
@@ -128,9 +126,8 @@ struct SudokuSolver{
         return (tiles, found);
     }
     
-    func applyHiddenSingles(models:TileModel[]) -> (TileModel[], Bool){
+    func applyHiddenSingles(tiles:TileModel[]) -> (TileModel[], Bool){
         var found = false;
-        let tiles = models.copy();
         let counter = getCounter(tiles);
                 
         for (i, tally) in enumerate(counter){
@@ -138,10 +135,10 @@ struct SudokuSolver{
                 tiles[tally[0]].currentValue = i+1;
                 tiles[tally[0]].possibleValues.removeAll(keepCapacity: false);
                 println("Hidden Single: (\(tiles[tally[0]].row),\(tiles[tally[0]].column))");
-                found = true;
+                return(tiles, true);
             }
         }
-        return (tiles, found);
+        return (tiles, false);
     }
 
     func applyNakedPairs(tiles:TileModel[]) -> (TileModel[], Bool){
@@ -217,13 +214,14 @@ struct SudokuSolver{
         //Value in this case is the inner array of counter. This will return which numbers are at the same locations using indexes.
         //matches[0].count == 3 means first match is at 3 indexes. matches[0][0] == 5 means the first index is 5. Will need to refer to counter
         //In order to get what the value of that match is, as well as which tile it belongs to.
+        
         let matches = indexesOfRepeatedValues(counter);
         if(matches.count == 0) { return (models, false); }
         else {
             for match in matches{
                 if(match.count > 2) { continue; } //Only interested in 2 numbers for pairs
                 //Make sure these values only appear in 2 tiles. It may be 2 values that appear in the same 3 or more tiles.
-                if(counter[match[0]].count > 2) { continue; }
+                if(counter[match[0]].count > 2 || counter[match[0]].count == 0) { continue; }
                 
                 let firstTileIndex = counter[match[0]][0];
                 let secondTileIndex = counter[match[0]][1];
