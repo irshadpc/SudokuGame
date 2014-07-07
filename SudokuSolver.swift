@@ -13,7 +13,6 @@ enum SolverActionApply:Int{
     case Possibles
     case HiddenSingles
     case NakedPairs
-    case NakedTriples
     case HiddenPairs
     case HiddenTriples
 }
@@ -56,8 +55,6 @@ struct SudokuSolver{
                 return applyHiddenSingles(tiles);
             case .NakedPairs:
                 return applyNakedPairs(tiles);
-            case .NakedTriples:
-                return applyNakedTriples(tiles);
             case .HiddenPairs:
                 //result = applyHiddenPairs(manager.tilesAtIndexPaths(paths));
                 break;
@@ -69,6 +66,32 @@ struct SudokuSolver{
         return result;
     }
     
+    func changePossibles(possibles:Int[], fromTiles models:TileModel[], excludeTiles exclude: TileModel[]?, removePossibles remove: Bool) -> (TileModel[], Bool){
+        var tiles = models.copy();
+        var possiblesChanged = false;
+        
+        for(i, tile) in enumerate(tiles){
+            
+            if let excludedTiles = exclude {
+                if($.contains(excludedTiles, value: tile)){
+                    continue;
+                }
+            }
+            
+            var result = tile.possibleValues.filter{
+                if($.contains(possibles, value: $0)){
+                    return !remove;
+                }
+                return remove;
+            }
+            if(result.count != tile.possibleValues.count) {
+                tiles[i].changePossibles(result);
+                possiblesChanged = true;
+            }
+        }
+        
+        return (tiles, possiblesChanged);
+    }
     
     func applySolvedTiles(models:TileModel[]) -> (TileModel[], Bool){
         var found = false;
@@ -121,112 +144,68 @@ struct SudokuSolver{
         return (tiles, found);
     }
 
-    func applyNakedPairs(models:TileModel[]) -> (TileModel[], Bool){
-        var found = false;
-        var tiles = models.copy();
-
-        let doublePossibles = tiles.filter { $0.possibleValues.count == 2 }
-                
-        for tile in doublePossibles{
-            let matches = tiles.filter { ($0 as TileModel).possibleValues == tile.possibleValues }
-            
-            if(matches.count == 2){
-                let result = changePossibles(tile.possibleValues, fromTiles: tiles, excludeTiles: matches, removePossibles: true);
-                found = result.1;
-                
-                if(found == true){
-                    tiles = result.0;
-                    println("Naked Pairs: (\(matches[0].row),\(matches[0].column)) and (\(matches[1].row),\(matches[1].column))");
-                    break;
-                }
-            }
-        }
-        return (tiles, found);
-    }
-    
-    func changePossibles(possibles:Int[], fromTiles models:TileModel[], excludeTiles exclude: TileModel[]?, removePossibles remove: Bool) -> (TileModel[], Bool){
-        var tiles = models.copy();
-        var possiblesChanged = false;
+    func applyNakedPairs(tiles:TileModel[]) -> (TileModel[], Bool){
         
-        for(i, tile) in enumerate(tiles){
-            
-            if let excludedTiles = exclude {
-                if($.contains(excludedTiles, value: tile)){
-                    continue;
-                }
-            }
-            
-            var result = tile.possibleValues.filter{
-                if($.contains(possibles, value: $0)){
-                    return !remove;
-                }
-                return remove;
-            }
-            if(result.count != tile.possibleValues.count) {
-                tiles[i].changePossibles(result);
-                possiblesChanged = true;
-            }
-        }
-        
-        return (tiles, possiblesChanged);
-    }
-    
-    // [2,5] [5,8] [2,8]
-    /**
-    * Search for 3 tiles that share exactly 3 different possible values between them
-    */
-    func applyNakedTriples(models:TileModel[]) -> (TileModel[], Bool){
-        var found = false;
-        var tiles = models.copy();
-        let triplePossibles = tiles.filter { $0.possibleValues.count == 3 } +
-                              tiles.filter { $0.possibleValues.count == 2 }
-        
-        for (i, tile) in enumerate(triplePossibles){
-            var currentQuota = tile.possibleValues; //Could have 2 or 3 values.
-            var matches = TileModel[]();
-            matches.append(tile);
-            
-            for idx in i+1...triplePossibles.count-1{
-                let other = triplePossibles[idx];
+        for (i, tile) in enumerate(tiles){
+            if(tile.possibleValues.count < 3){
+                //Enumerate through rest of array looking for a match
+                //Keep track of matching values to see if we have a match
+                var matches = [tile];
+                var quota = tile.possibleValues; //Could be 2 or 3 values
                 
-                if($.contains(currentQuota, value: other.possibleValues)){
-                    //Other is a definite match since all its possibles are already part of quota
-                    if(matches.count > 3){
-                        NSLog("FREAK OUT!! applyNakedTriples: matches.count > 3");
-                    }
+                for idx in i+1...tiles.count-1{
+                    let other = tiles[idx];
                     
-                    matches.append(other);
-                }
-                else{
-                    var sharedElements = other.possibleValues.filter { $.contains(currentQuota, value: $0) }
-                    if(sharedElements.count > 0){
-                        if(currentQuota.count + (other.possibleValues.count - sharedElements.count) > 3){
-                            //tile cannot possibly be part of a naked triple, as it shares an element with a tile that cannot be part of a naked triple
-                            //EX: [2,5] [2,8,9] sharedElements = [2] so 2 + (3 - 1) = 4 > 3
+                    if(tile.possibleValues == other.possibleValues){
+                        //Definite match, determine if it's a naked double or a possible triple
+                        if(tile.possibleValues.count == 2){
+                            //We have a naked pair, attempt to change possibles of other tiles
+                            let result = changePossibles(tile.possibleValues, fromTiles: tiles, excludeTiles: [tile, other], removePossibles: true);
+                            if(result.1 == true){
+                                //Return the changes
+                                println("Naked Pairs: (\(tile.row),\(tile.column)) and (\(tiles[idx].row),\(tiles[idx].column))");
+                                return result;
+                            }
+                            //Otherwise break loop, we won't find any other matches after this pair
                             break;
                         }
-                        matches.append(other);
-                        //currentQuota = arrayHelp(currentQuota, merge: other.possibleValues);
                     }
-                }
-                if(matches.count == 3){
-                    //We have three tiles that satisfy the condition
-                    //Remove values in currentQuota from all other tiles
-                    let result = changePossibles(currentQuota, fromTiles: tiles, excludeTiles: matches, removePossibles: true);
-                    if(result.1 == true){
-                        tiles = result.0;
-                        print("Naked Triples: ");
-                        for match in matches{
-                            print("(\(match.row), \(match.column)) ");
+                    
+                    //Might be a triple
+                    else if($.contains(quota, value: other.possibleValues)){
+                        //Possibles are already in quota, we have a match
+                        matches.append(other);
+                    }
+                        
+                    //Check if we can add to quota anyways
+                    else{
+                        let differentValues = $.difference([quota, other.possibleValues]);
+                        
+                        if(quota.count + differentValues.count <= 3){
+                            //We can add value to current quota
+                            matches.append(other);
                         }
-                        print("Values: \(currentQuota)\n");
-                        found = true;
+                    }
+                    
+                    if(matches.count == 3){
+                        //We have three tiles that satisfy the condition
+                        //Remove values in currentQuota from all other tiles
+                        let result = changePossibles(quota, fromTiles: tiles, excludeTiles: matches, removePossibles: true);
+                        if(result.1 == true){
+                            print("Naked Triples: ");
+                            for match in matches{
+                                print("(\(match.row), \(match.column)) ");
+                            }
+                            print("Values: \(quota)\n");
+                            return result;
+                        }
                     }
                 }
             }
         }
-        return (tiles, found);
+        return (tiles, false);
     }
+    
     //counter[0].count == 2 means the value 1 appears twice and it has the indexes stored so counter[0][0] == 3 means the value 1 is at the third index.
     func applyHiddenPairs(models:TileModel[]) -> (TileModel[], Bool){
         var found = false;
