@@ -19,7 +19,6 @@ enum SolverStep:Int{
 }
 
 struct SudokuSolver{
-    
     var manager: MDLTileManager;
     var paths: TileIndexPath[]!;
     
@@ -65,7 +64,7 @@ struct SudokuSolver{
                 result = applyNakedTriples(manager.tilesAtIndexPaths(paths));
                 break;
             case .HiddenPairs:
-                result = applyHiddenPairs(manager.tilesAtIndexPaths(paths));
+                //result = applyHiddenPairs(manager.tilesAtIndexPaths(paths));
                 break;
             case .HiddenTriples:
                 return false;
@@ -159,13 +158,13 @@ struct SudokuSolver{
         for(i, tile) in enumerate(tiles){
             
             if let excludedTiles = exclude {
-                if(arrayHelp(excludedTiles, containsElement: tile)){
+                if($.contains(excludedTiles, value: tile)){
                     continue;
                 }
             }
             
             var result = tile.possibleValues.filter{
-                if(arrayHelp(possibles, containsElement: $0)){
+                if($.contains(possibles, value: $0)){
                     return !remove;
                 }
                 return remove;
@@ -197,7 +196,7 @@ struct SudokuSolver{
             for idx in i+1...triplePossibles.count-1{
                 let other = triplePossibles[idx];
                 
-                if(arrayHelp(currentQuota, contains: other.possibleValues)){
+                if($.contains(currentQuota, value: other.possibleValues)){
                     //Other is a definite match since all its possibles are already part of quota
                     if(matches.count > 3){
                         NSLog("FREAK OUT!! applyNakedTriples: matches.count > 3");
@@ -206,7 +205,7 @@ struct SudokuSolver{
                     matches.append(other);
                 }
                 else{
-                    var sharedElements = other.possibleValues.filter { arrayHelp(currentQuota, containsElement: $0)};
+                    var sharedElements = other.possibleValues.filter { $.contains(currentQuota, value: $0) }
                     if(sharedElements.count > 0){
                         if(currentQuota.count + (other.possibleValues.count - sharedElements.count) > 3){
                             //tile cannot possibly be part of a naked triple, as it shares an element with a tile that cannot be part of a naked triple
@@ -214,7 +213,7 @@ struct SudokuSolver{
                             break;
                         }
                         matches.append(other);
-                        currentQuota = arrayHelp(currentQuota, merge: other.possibleValues);
+                        //currentQuota = arrayHelp(currentQuota, merge: other.possibleValues);
                     }
                 }
                 if(matches.count == 3){

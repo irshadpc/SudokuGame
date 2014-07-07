@@ -15,12 +15,12 @@ enum UnitType:Int, Printable{
     
     var description: String{
     switch(self){
-        case .Row:
-            return "Row";
-        case .Column:
-            return "Column";
-        case .Box:
-            return "Box";
+    case .Row:
+        return "Row";
+    case .Column:
+        return "Column";
+    case .Box:
+        return "Box";
         }
     }
 }
@@ -30,14 +30,14 @@ struct TileIndexPath: Equatable, Printable{
     var column: Int
     
     var description: String {
-        return "Row: \(row), Column: \(column)";
+    return "Row: \(row), Column: \(column)";
     }
     
-   func box() -> Int{
+    func box() -> Int{
         var boxColumn = (Int((column-1)/3) * 3) + 1;
-   
+        
         if(boxColumn == 1) { return self.bowRow(); }
-    
+        
         return self.bowRow() + ((boxColumn == 2) ? 1 : 2);
     }
     
@@ -81,7 +81,7 @@ struct TileIndexPath: Equatable, Printable{
         }
         return result;
     }
-
+    
     
     
     static func indexPathesOfBox(box: Int) -> Array<TileIndexPath>{
