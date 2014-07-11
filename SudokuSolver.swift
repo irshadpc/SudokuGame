@@ -18,15 +18,15 @@ enum SolverActionApply:Int{
 }
 
 struct SudokuSolver{
-    var tiles: TileModel[]!;
+    var tiles: [TileModel]!;
     
     init(){
         
     }
     
-    func getCounter(tiles:TileModel[]) -> Int[][]{
+    func getCounter(tiles:[TileModel]) -> [[Int]]{
         
-        var result = Int[][](count: 9, repeatedValue:Int[]());
+        var result = [[Int]](count: 9, repeatedValue:[Int]());
         for (i, tile) in enumerate(tiles){
             for value in tile.possibleValues{
                 result[value-1].append(i);
@@ -44,8 +44,8 @@ struct SudokuSolver{
         }
     }
     
-    func performAction(step: SolverActionApply)->(TileModel[], Bool){
-        var result:(TileModel[], Bool) = (TileModel[](), false);
+    func performAction(step: SolverActionApply)->([TileModel], Bool){
+        var result:([TileModel], Bool) = ([TileModel](), false);
         switch(step){
             case .NakedSingles:
                 return applySolvedTiles(tiles);
@@ -64,10 +64,9 @@ struct SudokuSolver{
         }
     }
     
-    func changePossibles(possibles:Int[], fromTiles models:TileModel[], excludeTiles exclude: TileModel[]?, removePossibles remove: Bool) -> (TileModel[], Bool){
-        var tiles = models.copy();
+    func changePossibles(possibles:[Int], fromTiles models:[TileModel], excludeTiles exclude: [TileModel]?, removePossibles remove: Bool) -> ([TileModel], Bool){
         var possiblesChanged = false;
-        
+        var tiles = models;
         for(i, tile) in enumerate(tiles){
             
             if let excludedTiles = exclude {
@@ -88,12 +87,12 @@ struct SudokuSolver{
             }
         }
         
-        return (tiles, possiblesChanged);
+        return (models, possiblesChanged);
     }
     
-    func applySolvedTiles(models:TileModel[]) -> (TileModel[], Bool){
+    func applySolvedTiles(models:[TileModel]) -> ([TileModel], Bool){
         var found = false;
-        let tiles = models.copy();
+        var tiles = models;
         for (i, tile) in enumerate(tiles){
             if(tile.possibleValues.count == 1){
                 tiles[i].currentValue = tiles[i].possibleValues.removeLast();
@@ -104,9 +103,9 @@ struct SudokuSolver{
         return (tiles, found);
     }
 
-    func applyPossibles(models:TileModel[]) -> (TileModel[], Bool){
+    func applyPossibles(models:[TileModel]) -> ([TileModel], Bool){
         var found = false;
-        let tiles = models.copy();
+        var tiles = models
         let solvedTiles = tiles.filter{ $0.possibleValues.count == 0 };
         for (i, tile) in enumerate(tiles){
             let result = tile.possibleValues.filter {
@@ -126,8 +125,9 @@ struct SudokuSolver{
         return (tiles, found);
     }
     
-    func applyHiddenSingles(tiles:TileModel[]) -> (TileModel[], Bool){
+    func applyHiddenSingles(models:[TileModel]) -> ([TileModel], Bool){
         var found = false;
+        var tiles = models;
         let counter = getCounter(tiles);
                 
         for (i, tally) in enumerate(counter){
@@ -141,7 +141,7 @@ struct SudokuSolver{
         return (tiles, false);
     }
 
-    func applyNakedPairs(tiles:TileModel[]) -> (TileModel[], Bool){
+    func applyNakedPairs(tiles:[TileModel]) -> ([TileModel], Bool){
         
         for (i, tile) in enumerate(tiles){
             if(tile.possibleValues.count < 3){
@@ -204,9 +204,9 @@ struct SudokuSolver{
     }
     
     //counter[0].count == 2 means the value 1 appears twice and it has the indexes stored so counter[0][0] == 3 means the value 1 is at the third index.
-    func applyHiddenPairs(models:TileModel[]) -> (TileModel[], Bool){
+    func applyHiddenPairs(models:[TileModel]) -> ([TileModel], Bool){
         var found = false;
-        var tiles = models.copy();
+        var tiles = models
         let counter = getCounter(tiles); //Represent value of possibles and how many times they appear in unit
     
         if(counter.filter{ $0.count == 2 }.count <= 1) { return (models, false); }

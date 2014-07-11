@@ -89,7 +89,7 @@ class GameManager: UISudokuboardViewDelegate, UISudokuboardViewDatasource{
     func sudokuboardView(gameboard:UISudokuboardView, selectionState_forSudokutileWithIndexPath path:TileIndexPath) -> TileState{
         return (currentlySelectedTile == path) ? TileState.Selected : TileState.None;
     }
-    func sudokuboardView(gameboard:UISudokuboardView, solutionPossibles_forSudokutileWithIndexPath path:TileIndexPath) -> Int[]{
+    func sudokuboardView(gameboard:UISudokuboardView, solutionPossibles_forSudokutileWithIndexPath path:TileIndexPath) -> [Int]{
         return tilemanager.tiles[path.row-1][path.column-1].possibleValues
     }
 }

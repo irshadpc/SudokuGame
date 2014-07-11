@@ -8,9 +8,9 @@
 
 //Useful until better support is added for Swift
 
-func indexesOfRepeatedValues<T:Equatable>(array:T[]) -> Int[][]{
-    var result = Int[][]();
-    var found = T[]();
+func indexesOfRepeatedValues<T:Equatable>(array:[T]) -> [[Int]]{
+    var result = [[Int]]();
+    var found = [T]();
     
     for(i, element) in enumerate(array){
         //Iterate through rest of array
@@ -19,7 +19,7 @@ func indexesOfRepeatedValues<T:Equatable>(array:T[]) -> Int[][]{
             for idx in i+1...array.count-1{
                 if(element == array[idx]){
                     if(!matchFound){
-                        result.append(Int[]());
+                        result.append([Int]());
                         result[result.count-1].append(i);
                         found.append(element);
                         matchFound = true;

@@ -21,7 +21,7 @@ class MDLTileManager{
             if(isGiven == true){ possibleValues.removeAll() }
         }
         }
-        var possibleValues = Int[]();
+        var possibleValues = [Int]();
         
         var row:Int
         var column:Int
@@ -38,7 +38,7 @@ class MDLTileManager{
             return (solutionValue != 0) && (currentValue == solutionValue);
         }
         
-        mutating func changePossibles(newPossibles:Int[]){
+        mutating func changePossibles(newPossibles:[Int]){
             self.possibleValues = newPossibles;
         }
         
@@ -59,7 +59,7 @@ class MDLTileManager{
         }
     }
     
-    var tiles = TileModel[][](count: 9, repeatedValue: TileModel[]());
+    var tiles = [[TileModel]](count: 9, repeatedValue: [TileModel]());
     
     init(){
         
@@ -75,7 +75,7 @@ class MDLTileManager{
         return true;
     }
     
-    func solutionsAtIndexPaths(indexPaths: TileIndexPath[]) -> Int[]{
+    func solutionsAtIndexPaths(indexPaths: [TileIndexPath]) -> [Int]{
         var result = Array<Int>();
         
         for path in indexPaths{
@@ -88,7 +88,7 @@ class MDLTileManager{
         return result;
     }
 
-    func setValue(models:TileModel[], atIndexPaths paths:TileIndexPath[]){
+    func setValue(models:[TileModel], atIndexPaths paths:[TileIndexPath]){
         if(models.count != paths.count) { return; }
         
         for (i, path) in enumerate(paths){
@@ -100,7 +100,7 @@ class MDLTileManager{
         return tiles[path.row-1][path.column-1];
     }
     
-    func tilesAtIndexPaths(indexPaths: TileIndexPath[]) -> TileModel[]{
+    func tilesAtIndexPaths(indexPaths: [TileIndexPath]) -> [TileModel]{
         var result = Array<TileModel>();
         
         for path in indexPaths{
@@ -109,8 +109,8 @@ class MDLTileManager{
         return result;
     }
     
-    func tilePathsWithPossibles(possibles: Int[], inPaths paths:TileIndexPath[]) -> Array<TileIndexPath>{
-        var result = TileIndexPath[]();
+    func tilePathsWithPossibles(possibles: [Int], inPaths paths:[TileIndexPath]) -> Array<TileIndexPath>{
+        var result = [TileIndexPath]();
         for path in paths{
             var values = tiles[path.row-1][path.column-1].possibleValues;
             if(values == possibles){
@@ -120,8 +120,8 @@ class MDLTileManager{
         return result;
     }
     
-    func tilePathsWithPieceOfPossibles(possibles: Int[], inPaths paths: TileIndexPath[]) -> Array<TileIndexPath>{
-        var result = TileIndexPath[]();
+    func tilePathsWithPieceOfPossibles(possibles: [Int], inPaths paths: [TileIndexPath]) -> Array<TileIndexPath>{
+        var result = [TileIndexPath]();
         for path in paths{
             var values = tiles[path.row-1][path.column-1].possibleValues;
             if(values.count > 0){
@@ -133,7 +133,7 @@ class MDLTileManager{
         return result;
     }
     
-    func removeAllPossiblesExcept(possibles:Int[], atIndexPaths paths:TileIndexPath[]) -> Bool {
+    func removeAllPossiblesExcept(possibles:[Int], atIndexPaths paths:[TileIndexPath]) -> Bool {
         var removedPossibles = false;
         for path in paths{
             tiles[path.row-1][path.column-1].possibleValues = tiles[path.row-1][path.column-1].possibleValues.filter{
@@ -147,7 +147,7 @@ class MDLTileManager{
         return removedPossibles;
     }
     
-    func removePossibles(possibles: Int[], atIndexPaths paths:TileIndexPath[]) -> Bool{
+    func removePossibles(possibles: [Int], atIndexPaths paths:[TileIndexPath]) -> Bool{
         var removedPossibles = false;
         for path in paths{
             tiles[path.row-1][path.column-1].possibleValues = tiles[path.row-1][path.column-1].possibleValues.filter{

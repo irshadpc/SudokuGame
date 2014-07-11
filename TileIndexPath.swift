@@ -55,7 +55,7 @@ struct TileIndexPath: Equatable, Printable{
     }
     
     static func indexPathsOfUnit(unit:Int, ofUnitType type:UnitType) -> Array<TileIndexPath>{
-        var result = TileIndexPath[]();
+        var result = [TileIndexPath]();
         switch type{
         case UnitType.Row:
             return indexPathesOfRow(unit);

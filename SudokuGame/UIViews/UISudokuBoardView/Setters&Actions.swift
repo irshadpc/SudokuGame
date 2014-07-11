@@ -37,7 +37,7 @@ extension UISudokuboardView{
         tileViewModels[path.toIndex()].currentValue = value;
     }
     
-    func setPossibles(possibles:Int[], forTileAtIndexPath path:TileIndexPath){
+    func setPossibles(possibles:[Int], forTileAtIndexPath path:TileIndexPath){
         let tileview = self.subviews[path.toIndex()] as UIView
         
         self.clearPossiblesForTileAtIndexPath(path);
